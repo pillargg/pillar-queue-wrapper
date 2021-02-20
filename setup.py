@@ -7,11 +7,11 @@ setuptools.setup(
     name='pillar-queue-wrapper',
     version='0.0.1',
     author="PillarGG",
-    author_email='chandler@pillar.gg',
+    author_email='opensource@pillar.gg',
     description='Our internal queue wrapper.',
     long_description=long_desc,
     long_description_content_type="text/markdown",
-    url='https://github.com/pillargg/pillar-mongodb-wrapper',
+    url='https://github.com/pillargg/pillar-queue-wrapper',
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
