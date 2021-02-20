@@ -11,8 +11,8 @@ theme:
   icon:
     repo: fontawesome/brands/github
 
-repo_url: https://github.com/pillargg/youtube-upload
-repo_name: pillargg/youtube-upload
+repo_url: https://github.com/pillargg/pillar-queue-wrapper
+repo_name: pillargg/pillar-queue-wrapper
 
 plugins:
 - search
