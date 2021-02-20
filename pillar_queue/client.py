@@ -72,7 +72,6 @@ class Queue:
             QueueUrl=self.url,
             AttributeNames=[attribute]
         )
-        print(self.attributes)
         length = self.attributes['Attributes'].get(attribute)
         return int(length)
 
@@ -176,16 +175,18 @@ class Queue:
 
         Information about `message_attributes` can be found [here](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-java-send-message-with-attributes.html).
 
+        The following variables are only relevant if you are using a FIFO Queue on AWS SQS. More information about the type of queue can be found [here](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html).
+
         Information about `deduplication_id` can be found [here](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagededuplicationid-property.html). By default a random one is used to allow for all messages to be added to the queue.
 
         Information about `message_group_id` can be found [here](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/using-messagegroupid-property.html).
         '''
 
-        if not message_group_id:
-            message_group_id = __name__
-
         try:
             if self.fifo:
+
+                if not message_group_id:
+                    message_group_id = __name__
                 if not deduplication_id:
                     deduplication_id = uuid.uuid1().hex
                 self.response = self.queue.send_message(
@@ -198,7 +199,6 @@ class Queue:
                 self.response = self.queue.send_message(
                     MessageBody=message,
                     MessageAttributes=message_attributes,
-                    MessageGroupId=message_group_id
                 )
         except ClientError as e:
             self.logger.error(e)

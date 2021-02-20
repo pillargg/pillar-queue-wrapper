@@ -236,8 +236,8 @@ def test_getitem():
     assert(q[1] != None)
     assert(q[1].body == 'world')
     assert(is_index_error(q, 2))
-    assert(queue[-1] == 'world')
-    assert(queue[-2] == 'hello')
+    assert(q[-1] == 'world')
+    assert(q[-2] == 'hello')
 
 
 def test_setitem():
