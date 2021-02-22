@@ -1,4 +1,6 @@
-# pillar-queue-wrapper
+[![Tests](https://github.com/pillargg/pillar-queue-wrapper/actions/workflows/test.yml/badge.svg)](https://github.com/pillargg/pillar-queue-wrapper/actions/workflows/test.yml) [![Upload Python Package](https://github.com/pillargg/pillar-queue-wrapper/actions/workflows/pypi-publish.yml/badge.svg)](https://github.com/pillargg/pillar-queue-wrapper/actions/workflows/pypi-publish.yml) [![Build Docs](https://github.com/pillargg/pillar-queue-wrapper/actions/workflows/build-docs.yml/badge.svg)](https://github.com/pillargg/pillar-queue-wrapper/actions/workflows/build-docs.yml)
+
+# Pillar Queue Wrapper
 Pillar's wrapper around [AWS SQS](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html)
 
 There are 2 options for authentication through this wrapper
