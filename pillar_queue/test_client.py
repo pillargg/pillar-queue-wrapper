@@ -16,7 +16,9 @@ def delete_all_messages_from_queue(queue):
 
 def instantiate_queue(name="testqueue.fifo"):
     q = Queue(
-        name=name
+        name=name,
+        aws_access_key=os.environ.get('AWS_ACCESS_KEY_ID'),
+        aws_access_secret=os.environ.get('AWS_SECRET_ACCESS_KEY')
     )
     q.wait_for_accuracy = True
     delete_all_messages_from_queue(q)
