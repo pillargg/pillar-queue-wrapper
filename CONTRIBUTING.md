@@ -15,3 +15,13 @@ Please note we have a code of conduct, please follow it in all your interactions
    Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
 4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
+
+## (Optional) Adding Pre-Commit hooks.
+Your working environment can either be your pre-installed Python environment or can be a Python Virtual Environment (which is recommended). Setup guide for Python virtual environment can be found [here](https://thepythonguru.com/python-virtualenv-guide/#installing-virtualenv).
+
+```Bash
+# Assuming you are in the repo directory
+python -m pip install -r requirements.txt
+git submodule update --init --recursive
+pre-commit install
+```
