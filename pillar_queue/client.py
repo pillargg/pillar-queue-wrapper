@@ -31,6 +31,9 @@ class Queue:
         self.fifo = '.fifo' in self.name
         self.attributes = None
 
+        self.wait_for_accuracy = False
+        self.wait_time = 60
+
         if aws_access_key and aws_access_secret:
             self.sqs_resource = boto3.resource(
                 service_name='sqs',
@@ -61,15 +64,16 @@ class Queue:
         '''
         return self.name == other.name
 
-    def __len__(self, wait_for_accuracy=True):
+    def __len__(self):
         '''
         Get approximate length of the queue. See [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Client.get_queue_attributes) for more info.
-
+        
+        Set `q.wait_for_accuracy = True` to have this function block for 60 seconds while the AWS queueing service updates itself to get a more up to date value.
         '''
         attribute = 'ApproximateNumberOfMessages'
 
-        if wait_for_accuracy:
-            time.sleep(10)
+        if self.wait_for_accuracy:
+            time.sleep(self.wait_time)
 
         self.attributes = self.sqs_client.get_queue_attributes(
             QueueUrl=self.url,

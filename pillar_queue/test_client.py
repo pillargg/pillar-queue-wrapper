@@ -18,6 +18,7 @@ def instantiate_queue(name="testqueue.fifo"):
     q = Queue(
         name=name
     )
+    q.wait_for_accuracy = True
     delete_all_messages_from_queue(q)
     return q
 
@@ -51,6 +52,8 @@ def test_equals():
 def test_receive_message():
     q = instantiate_queue()
     assert(len(q) == 0)
+    message = q.receive_message(wait_time=1, delete_message=True)
+    assert(message is None)
 
     q.send_message('hello')
     message = q.receive_message(wait_time=1, delete_message=True)
@@ -78,7 +81,7 @@ def test_receive_message():
     message = q.receive_message(wait_time=10, delete_message=True)
     time_delta = time.perf_counter() - start_time
 
-    assert(time_delta > 9 and time_delta < 11)
+    assert(time_delta < 12)
     assert(message is None)
 
 
