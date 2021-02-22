@@ -6,7 +6,7 @@ with open('README.md') as readme:
 setuptools.setup(
     name='pillar-queue-wrapper',
     version='0.0.1',
-    author="PillarGG",
+    author="Pillar",
     author_email='opensource@pillar.gg',
     description='Our internal queue wrapper.',
     long_description=long_desc,
