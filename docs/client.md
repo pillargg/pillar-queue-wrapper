@@ -8,7 +8,6 @@
             - __setitem__
             - __delitem__
             - receive_message
-            - receive_messages
             - wait_for_message
             - send_message
             - purge
