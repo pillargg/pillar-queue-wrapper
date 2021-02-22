@@ -4,9 +4,6 @@
         members:
             - __init__
             - __len__
-            - __getitem__
-            - __setitem__
-            - __delitem__
             - receive_message
             - wait_for_message
             - send_message

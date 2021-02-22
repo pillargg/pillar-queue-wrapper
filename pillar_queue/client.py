@@ -61,12 +61,15 @@ class Queue:
         '''
         return self.name == other.name
 
-    def __len__(self):
+    def __len__(self, wait_for_accuracy=True):
         '''
         Get approximate length of the queue. See [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Client.get_queue_attributes) for more info.
 
         '''
         attribute = 'ApproximateNumberOfMessages'
+
+        if wait_for_accuracy:
+            time.sleep(10)
 
         self.attributes = self.sqs_client.get_queue_attributes(
             QueueUrl=self.url,
@@ -74,35 +77,6 @@ class Queue:
         )
         length = self.attributes['Attributes'].get(attribute)
         return int(length)
-
-    def __getitem__(self, key):
-        '''
-        Returns an item in the queue specified by the user. Only supports a range from `[-10, 9]`.
-        '''
-
-        messages = self.receive_messages(delete_messages=False)
-
-        length = len(messages)
-
-        if key < 0:
-            key = length - key
-            if key < -10:
-                raise KeyError(
-                    "Index out of range, must be in range [-10, 9].")
-
-        if key > 9:
-            raise KeyError("Index out of range, must be in range [0, 9].")
-
-        return messages[key]
-
-    def __setitem__(self, key, value):
-        '''
-        Forwards to .send_message(). This means that no matter what message is set, it will always be added to the end of the queue. 
-        '''
-        self.send_message(value)
-
-    def __delitem__(self, message):
-        message.delete()
 
     def receive_message(self, wait_time=10, delete_message=True):
         """
@@ -114,7 +88,7 @@ class Queue:
         processing the message upon receiving it. If you do not want to do this, you can instead set `delete_message` to `False`,
         preventing the message from being deleted from the queue. To later delete the message, see [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Message.delete).
         """
-        messages = self.receive_messages(
+        messages = self._receive_messages(
             max_number=1, wait_time=wait_time, delete_messages=delete_message)
 
         if len(messages) == 1:
@@ -123,7 +97,7 @@ class Queue:
 
         return None
 
-    def receive_messages(self, max_number=10, wait_time=10, delete_messages=True):
+    def _receive_messages(self, max_number=10, wait_time=10, delete_messages=True):
         '''
         Gets multiple messages with a max of `10`. Also defaults to getting `10` messages. 
 
