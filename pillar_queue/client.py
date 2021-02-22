@@ -110,8 +110,8 @@ class Queue:
 
         The variable `wait_time` is how long it waits in seconds before returning `None` if the queue is empty. The minimum `wait_time` is 1 second.
 
-        By default, the message recieved is deleted from the queue when gotten, as this library assumes you will be
-        processing the message upon recieving it. If you do not want to do this, you can instead set `delete_message` to `False`,
+        By default, the message received is deleted from the queue when gotten, as this library assumes you will be
+        processing the message upon receiving it. If you do not want to do this, you can instead set `delete_message` to `False`,
         preventing the message from being deleted from the queue. To later delete the message, see [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Message.delete).
         """
         messages = self.receive_messages(
@@ -132,7 +132,7 @@ class Queue:
         The variable `wait_time` specifies how long the function will wait in seconds before returning an empty list of messages. It will also wait if the queue does not contain the requested number of messages. The minimum `wait_time` is 1 second.
 
         By default, all of the messages are deleted from the queue when getting them, as this library assumes you will be 
-        processing them immediately upon recieving them. If you do not want to do this, you can instead set `delete_messages` to `False`,
+        processing them immediately upon receiving them. If you do not want to do this, you can instead set `delete_messages` to `False`,
         preventing the messages from being deleted from the queue. To later delete those messages, see [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Message.delete).
         '''
         try:
@@ -158,8 +158,8 @@ class Queue:
 
         Returns the single message that it received from the queue. 
 
-        By default, the message recieved is deleted from the queue when gotten, as this library assumes you will be
-        processing the message upon recieving it. If you do not want to do this, you can instead set `delete_message` to `False`,
+        By default, the message received is deleted from the queue when gotten, as this library assumes you will be
+        processing the message upon receiving it. If you do not want to do this, you can instead set `delete_message` to `False`,
         preventing the message from being deleted from the queue. To later delete the message, see [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Message.delete).
         """
 
