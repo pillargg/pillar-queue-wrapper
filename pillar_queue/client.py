@@ -18,7 +18,7 @@ class Queue:
         The default region set by this library is `us-east-1`. To change that, simply set `aws_default_region` to the region string, for example `us-east-2` or `eu-
         '''
         self.name = name
-        self.aws_access_key = aws_access_key,
+        self.aws_access_key = aws_access_key
         self.aws_access_secret = aws_access_secret
         self.aws_default_region = aws_default_region
 
