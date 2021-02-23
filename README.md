@@ -8,6 +8,7 @@ There are 2 options for authentication through this wrapper
 - Implicit: Where 'None' is passed into the queue function and it trys to get the credetials from the [AWS cli](https://github.com/aws/aws-cli/tree/v2) Install the aws cli and add the 'aws_access_key' and 'aws_access_secret' to it.
 ## Quickstart/Basic Usage
 ```python
+    from pillar_queue import Queue
     q = Queue(
         name="queuename",
         aws_access_key="aws_access_key here",
