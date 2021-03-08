@@ -140,4 +140,3 @@ def test_purge():
     success = q.purge()
     assert(success)
     assert(len(q) == 0)
-
