@@ -3,9 +3,9 @@ import os
 from pillar_queue import Queue
 
 
-def create_queue(name, aws_access_key=None, aws_access_secret=None):
+def get_queue(name, aws_access_key=None, aws_access_secret=None):
     '''
-    Shortcut function to create a queue
+    Shortcut function to get a queue. If the queue does not exist on AWS it will throw an error.
     '''
 
     if aws_access_key is None:
