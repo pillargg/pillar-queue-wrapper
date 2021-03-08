@@ -38,6 +38,7 @@ def test_Queue_init():
     assert(q.aws_default_region == 'us-east-1')
     assert(len(q) == 0)
 
+
 def test_get_queue():
     q = get_queue('testqueue.fifo')
 
