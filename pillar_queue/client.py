@@ -8,9 +8,14 @@ from botocore.exceptions import ClientError
 
 
 class Queue:
-    def __init__(self, name, aws_access_key=None, aws_access_secret=None, aws_default_region='us-east-1'):
+    def __init__(
+            self,
+            name,
+            aws_access_key=None,
+            aws_access_secret=None,
+            aws_default_region='us-east-1'):
         '''
-        Initializes the class. The variable `name` is the name of the queue as seen on AWS. 
+        Initializes the class. The variable `name` is the name of the queue as seen on AWS.
 
         The variables `aws_access_key` and `aws_access_secret` correspond to the variables `aws_access_key_id` and `aws_secret_access_key` from within boto3.
         If these variables are not set, boto3 will get your credentials as detailed [here](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html).
@@ -67,7 +72,7 @@ class Queue:
     def __len__(self):
         '''
         Get approximate length of the queue. See [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Client.get_queue_attributes) for more info.
-        
+
         Set `q.wait_for_accuracy = True` to have this function block for 60 seconds while the AWS queueing service updates itself to get a more up to date value.
         '''
         attribute = 'ApproximateNumberOfMessages'
@@ -84,7 +89,7 @@ class Queue:
 
     def receive_message(self, wait_time=10, delete_message=True):
         """
-        Get a message from the queue. 
+        Get a message from the queue.
 
         The variable `wait_time` is how long it waits in seconds before returning `None` if the queue is empty. The minimum `wait_time` is 1 second.
 
@@ -101,15 +106,19 @@ class Queue:
 
         return None
 
-    def _receive_messages(self, max_number=10, wait_time=10, delete_messages=True):
+    def _receive_messages(
+            self,
+            max_number=10,
+            wait_time=10,
+            delete_messages=True):
         '''
-        Gets multiple messages with a max of `10`. Also defaults to getting `10` messages. 
+        Gets multiple messages with a max of `10`. Also defaults to getting `10` messages.
 
         To get a specific number of messages, set `max_number` to a number in the range `[1, 10]`.
 
         The variable `wait_time` specifies how long the function will wait in seconds before returning an empty list of messages. It will also wait if the queue does not contain the requested number of messages. The minimum `wait_time` is 1 second.
 
-        By default, all of the messages are deleted from the queue when getting them, as this library assumes you will be 
+        By default, all of the messages are deleted from the queue when getting them, as this library assumes you will be
         processing them immediately upon receiving them. If you do not want to do this, you can instead set `delete_messages` to `False`,
         preventing the messages from being deleted from the queue. To later delete those messages, see [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html#SQS.Message.delete).
         '''
@@ -132,9 +141,9 @@ class Queue:
 
     def wait_for_message(self, delete_message=True):
         """
-        Blocking function that waits for a message to appear in the specified(via init function) queue. 
+        Blocking function that waits for a message to appear in the specified(via init function) queue.
 
-        Returns the single message that it received from the queue. 
+        Returns the single message that it received from the queue.
 
         By default, the message received is deleted from the queue when gotten, as this library assumes you will be
         processing the message upon receiving it. If you do not want to do this, you can instead set `delete_message` to `False`,
@@ -147,9 +156,14 @@ class Queue:
             message = self.receive_message()
         return message
 
-    def send_message(self, message, message_attributes={}, message_group_id=None, deduplication_id=None):
+    def send_message(
+            self,
+            message,
+            message_attributes={},
+            message_group_id=None,
+            deduplication_id=None):
         '''
-        Sends a message to the queue. The body of the message is housed in the `message` variable. 
+        Sends a message to the queue. The body of the message is housed in the `message` variable.
 
         Information about `message_attributes` can be found [here](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-java-send-message-with-attributes.html).
 
@@ -189,7 +203,7 @@ class Queue:
     def purge(self):
         '''
         Purges all messages from the queue. WARNING: This can be a dangerous function to execute as all items will be purged regardless of the state of any other programs accessing
-        the queue. 
+        the queue.
         This function will also purge all items added to the queue for 60 seconds from the function call.
         This function is blocking for those 60 seconds.
         '''
