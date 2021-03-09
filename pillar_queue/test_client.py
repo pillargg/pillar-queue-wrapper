@@ -4,7 +4,7 @@ import pytest
 import concurrent.futures
 import time
 
-from pillar_queue import Queue, create_queue
+from pillar_queue import Queue, get_queue
 
 
 def delete_all_messages_from_queue(queue):
