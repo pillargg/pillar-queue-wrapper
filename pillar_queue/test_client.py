@@ -4,7 +4,7 @@ import pytest
 import concurrent.futures
 import time
 
-from pillar_queue import Queue
+from pillar_queue import Queue, get_queue
 
 
 def delete_all_messages_from_queue(queue):
@@ -36,6 +36,14 @@ def test_Queue_init():
 
     assert(q.name == "testqueue.fifo")
     assert(q.aws_default_region == 'us-east-1')
+    assert(len(q) == 0)
+
+
+def test_get_queue():
+    q = get_queue('testqueue.fifo')
+
+    assert(q.name == "testqueue.fifo")
+    assert(q.aws_default_region == "us-east-1")
     assert(len(q) == 0)
 
 
@@ -133,4 +141,3 @@ def test_purge():
     success = q.purge()
     assert(success)
     assert(len(q) == 0)
-
